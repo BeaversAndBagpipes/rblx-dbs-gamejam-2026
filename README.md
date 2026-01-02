@@ -1,14 +1,25 @@
-# Roblox Project Template
+# DoBigStuff GameJam 2026
 
-A simplified project structure for developing Roblox experiences in small teams using a semi-managed Rojo pipeline.
+### `rblx-dbs-gamejam-2026`
+
+This repo contains the Beavers and Bagpipes entry to the DoBigStuff GameJam 2026. It was created from an existing template used by the team to faciliate bootstrapping small projects. More information on the repo can be found below.
+
+The original template repository can be found here: https://github.com/stom66/rblx-simple-template
 
 ## Table of Contents
 
+- [Resources](#resources)
 - [Getting Started](#getting-started)
 - [Pipeline Overview](#pipeline-overview)
 - [Code Sync Workflow](#code-sync-workflow)
 - [Project Structure](#project-structure)
-- [Resources](#resources)
+
+---
+
+## Resources
+
+- [SRC Scene `9491423168` - used for development](https://create.roblox.com/dashboard/creations/experiences/9491423168/overview)
+- [Live Scene `9491477687` - used for deployment](https://create.roblox.com/dashboard/creations/experiences/9491423168/overview)
 
 ---
 
@@ -77,9 +88,3 @@ src/
   ├── rbxm/      → Saved assets (Workspace, ScreenGuis)
   ├── textures/  → Textures, sprites, and GUI assets
 ```
-
----
-
-## Resources
-
-- [Test Experience (Roblox)](https://create.roblox.com/dashboard/creations/experiences/8186116224/overview)
