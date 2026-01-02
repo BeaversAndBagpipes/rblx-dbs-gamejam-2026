@@ -5,9 +5,8 @@ local Players                     = game:GetService("Players")
 local ReplicatedStorage           = game:GetService("ReplicatedStorage")
 
 -- Types
-local T_Particles                 = require(ReplicatedStorage.Shared.Types.Particles)
+local T_SharedTypes               = require(ReplicatedStorage.Shared.Types.SharedTypes)
 local T_ParticleManager           = require(ReplicatedStorage.ClientStorage.Types.ParticleManager)
-
 
 -- Modules
 local Anim                        = require(ReplicatedStorage.Shared.Lib["Anim.Particles"])
@@ -84,7 +83,7 @@ end
 -- ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝   ╚═╝
 --
 
-function ParticleManager:Burst(guiObject: GuiObject, props: T_Particles.Burst)
+function ParticleManager:Burst(guiObject: GuiObject, props: T_SharedTypes.ParticleBurst)
 
 	if not guiObject then
 		warn("ParticleManager:OutlineBurst(): invalid guiObject")
@@ -136,7 +135,7 @@ end
 --  ╚═════╝  ╚═════╝    ╚═╝   ╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝
 --
 
-function ParticleManager:OutlineBurst(guiObject: GuiObject, props: T_Particles.Burst)
+function ParticleManager:OutlineBurst(guiObject: GuiObject, props: T_SharedTypes.ParticleBurst)
 
 	if not guiObject then
 		warn("ParticleManager:OutlineBurst(): invalid guiObject")
@@ -191,7 +190,7 @@ end
 --  ╚═════╝  ╚═════╝    ╚═╝   ╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝    ╚═════╝╚═╝╚═╝  ╚═╝ ╚═════╝╚══════╝╚══════╝
 --
 
-function ParticleManager:OutlineBurstCircle(guiObject: GuiObject, props: T_Particles.Burst)
+function ParticleManager:OutlineBurstCircle(guiObject: GuiObject, props: T_SharedTypes.ParticleBurst)
 
 	if not guiObject then
 		warn("ParticleManager:OutlineBurst(): invalid guiObject")

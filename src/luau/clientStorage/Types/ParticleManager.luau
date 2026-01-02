@@ -4,24 +4,24 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Types
-local T_Particles       = require(ReplicatedStorage.Shared.Types.Particles)
+local T_SharedTypes     = require(ReplicatedStorage.Shared.Types.SharedTypes)
 
 -- Main
 export type ParticleManager = {
 	Burst             : (
 		self     : ParticleManager,
 		guiObject: GuiObject,
-		props    : T_Particles.Burst?
+		props    : T_SharedTypes.ParticleBurst?
 	) -> nil,
 	OutlineBurst      : (
 		self     : ParticleManager,
 		guiObject: GuiObject,
-		props    : T_Particles.Burst?
+		props    : T_SharedTypes.ParticleBurst?
 	) -> nil,
 	OutlineBurstCircle: (
 		self     : ParticleManager,
 		guiObject: GuiObject,
-		props    : T_Particles.Burst?
+		props    : T_SharedTypes.ParticleBurst?
 	) -> nil,
 }
 

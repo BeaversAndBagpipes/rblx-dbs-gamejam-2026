@@ -4,7 +4,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Types
-local T_SoundParams     = require(ReplicatedStorage.Shared.Types.SoundParams)
+local T_SharedTypes     = require(ReplicatedStorage.Shared.Types.SharedTypes)
 
 -- Main
 export type SoundHandler = {
@@ -17,7 +17,7 @@ export type SoundHandler = {
 	TriggerSound : (
 		self  : SoundHandler,
 		sound : Sound | { Sound },
-		params: T_SoundParams.SoundParams
+		params: T_SharedTypes.SoundParams
 	) -> nil,
 
 	TriggerMusic: (

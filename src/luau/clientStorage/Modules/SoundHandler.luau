@@ -8,7 +8,7 @@ local TweenService      = game:GetService("TweenService")
 local Workspace         = game:GetService("Workspace")
 
 -- Types
-local T_SoundParams     = require(ReplicatedStorage.Shared.Types.SoundParams)
+local T_SharedTypes     = require(ReplicatedStorage.Shared.Types.SharedTypes)
 local T_SoundHandler    = require(ReplicatedStorage.ClientStorage.Types.SoundHandler)
 
 -- Data
@@ -96,7 +96,7 @@ function SoundHandler:Init(config: InitConfig)
 	self:PreloadSounds()
 
 	-- Mute music for local test players
-	if LocalPlayer.UserId < 1 then
+	if LocalPlayer.UserId < 1 or RunService:IsStudio() then
 		self.musicMuted = true
 	end
 
@@ -116,14 +116,14 @@ function SoundHandler:Init(config: InitConfig)
 	-- Bind to TriggerSound Remote/Bindable events
 	assert(config.RE_TriggerSound, "RE_TriggerSound not provided")
 	config.RE_TriggerSound.OnClientEvent:Connect(
-		function(sound: Sound | { Sound }, params: T_SoundParams.SoundParams)
+		function(sound: Sound | { Sound }, params: T_SharedTypes.SoundParams)
 			self:TriggerSound(sound, params)
 		end
 	)
 
 	assert(config.BE_TriggerSound, "BE_TriggerSound not provided")
 	config.BE_TriggerSound.Event:Connect(
-		function(sound: Sound | { Sound }, params: T_SoundParams.SoundParams)
+		function(sound: Sound | { Sound }, params: T_SharedTypes.SoundParams)
 			self:TriggerSound(sound, params)
 		end
 	)
@@ -232,7 +232,7 @@ end
 
 function SoundHandler:TriggerSound(
 	sound : Sound | { Sound },
-	params: T_SoundParams.SoundParams
+	params: T_SharedTypes.SoundParams
 )
 	print("SoundHandler:TriggerSound(sound, params)", sound, params)
 
@@ -252,7 +252,7 @@ function SoundHandler:TriggerSound(
 	end
 
 	-- Set param defaults
-	params                = params :: T_SoundParams.SoundParams or {} :: T_SoundParams.SoundParams
+	params                = params :: T_SharedTypes.SoundParams or {} :: T_SharedTypes.SoundParams
 	params.parent         = params.parent or self.SG_Sfx
 	params.pitchIncrement = params.pitchIncrement or 0
 	params.pitchOffset    = params.pitchOffset or 0
