@@ -1,0 +1,65 @@
+name: Build and Deploy to Roblox
+
+on:
+  pull_request:
+    branches:
+      - build-deploy
+    types:
+      - closed  # Runs only when a PR to 'release' branch is closed
+  workflow_dispatch:  # Allows manual execution from the Actions page
+
+jobs:
+  build-and-deploy:
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rokit
+        run: |
+          curl -sSf https://raw.githubusercontent.com/rojo-rbx/rokit/main/scripts/install.sh | bash
+          echo "$HOME/.rokit/bin" >> $GITHUB_PATH  # Add Rokit to PATH
+
+      - name: Install Rokit Packages
+        run: |
+          rokit --version
+          rokit install --no-trust-check
+
+      - name: Create .env file
+        run: |
+          echo 'ASPHALT_API_KEY="${{ secrets.USER_API_KEY }}"' >> .env
+          echo 'ROBLOX_API_KEY="${{ secrets.USER_API_KEY }}"' >> .env
+
+      - name: Generate VERSION.luau
+        run: |
+          DATE=$(date +'%Y%m%d%H%M')
+          COMMIT_ID=$(git rev-parse --short HEAD)
+          VERSION="v-$DATE-$COMMIT_ID"
+
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "Generated version: $VERSION"
+
+          FILE_PATH="src/luau/replicatedFirst/VERSION.luau"
+
+          mkdir -p "$(dirname "$FILE_PATH")"
+
+          {
+            echo "-- Auto-generated version file"
+            echo "local VERSION = \"$VERSION\""
+            echo "return VERSION"
+          } > "$FILE_PATH"
+
+      - name: Run Rojo Build
+        run: |
+           ~/.rokit/bin/rojo build --output build/default.rbxl
+
+      - name: Save to Roblox
+        uses: tenx29/save-to-roblox@v1
+        with:
+          api-key: ${{ secrets.GROUP_API_KEY }}
+          universe-id: 6877925543
+          place-id: 127894101556484
+          place-file: build/default.rbxl
+          version-type: Published  # Can be either "Saved" or "Published"

@@ -1,0 +1,39 @@
+{
+	"name": "build/codeOnly",
+	"tree": {
+		"$className": "DataModel",
+		
+		"ReplicatedStorage": {
+			"ClientStorage": {
+				"$path": "src/luau/clientStorage"
+			},
+			"Shared": {
+				"$path": "src/luau/shared"
+			}
+		},
+
+		"ReplicatedFirst": {
+			"Shared": {
+				"$path": "src/luau/replicatedFirst"
+			}
+		},
+		
+		"ServerScriptService": {
+			"Server": {
+				"$path": "src/luau/server"
+			}
+		},
+
+		"ServerStorage": {
+			"$path": "src/luau/serverStorage"
+		},
+		
+		"StarterPlayer": {
+			"StarterPlayerScripts": {
+				"Client": {
+					"$path": "src/luau/client"
+				}
+			}
+		}
+	}
+}

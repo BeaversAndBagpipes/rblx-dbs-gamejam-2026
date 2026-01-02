@@ -1,0 +1,114 @@
+{
+	"name": "build/default",
+	"tree": {
+		"$className": "DataModel",
+
+		"Workspace": {
+			"$path": "src/rbxm/Workspace.rbxm"
+		},
+
+		"ReplicatedStorage": {
+			"ClientStorage": {
+				"$path": "src/luau/clientStorage"
+			},
+			"Shared": {
+				"$path": "src/luau/shared"
+			}
+		},
+
+		"ReplicatedFirst": {
+			"Shared": {
+				"$path": "src/luau/replicatedFirst"
+			}
+		},
+
+		"ServerScriptService": {
+			"Server": {
+				"$path": "src/luau/server"
+			}
+		},
+
+		"ServerStorage": {
+			"$path": "src/luau/serverStorage"
+		},
+
+		"StarterGui": {
+			"$className": "StarterGui",
+
+			"GUI": {
+				"$path": "src/rbxm/GUI.rbxm",
+				"$properties": {
+					"ResetOnSpawn": false
+				}
+			}
+		},
+
+		"StarterPlayer": {
+			"StarterPlayerScripts": {
+				"Client": {
+					"$path": "src/luau/client"
+				}
+			}
+		},
+
+		"Lighting": {
+			"$className": "Lighting",
+			"$properties": {
+				"Technology": "Future",
+				"Ambient": [0.0625, 0.0625, 0.0625],
+				"ColorShift_Bottom": [0.0, 0.0, 0.0],
+				"ColorShift_Top": [0.7685, 0.8705, 1.0],
+				"OutdoorAmbient": [0.5255, 0.6195, 0.745],
+				"GlobalShadows": true,
+				"Outlines": false,
+				"Brightness": 3.0,
+				"ShadowSoftness": 1.0,
+				"ClockTime": 12
+			},
+			"Atmosphere": {
+				"$className": "Atmosphere",
+				"$properties": {
+					"Density": 0.3,
+					"Glare": 0.3,
+					"Haze": 0.3,
+					"Color": [0.78, 0.78, 0.78],
+					"Decay": [0.416, 0.439, 0.49]
+				}
+			},
+			"Sky": {
+				"$className": "Sky",
+				"$properties": {
+					"SunAngularSize": 11,
+					"MoonAngularSize": 11,
+					"StarCount": 3000
+				}
+			},
+			"Bloom": {
+				"$className": "BloomEffect",
+				"$properties": {
+					"Intensity": 1.0,
+					"Size": 24,
+					"Threshold": 2.0
+				}
+			},
+			"DepthOfField": {
+				"$className": "DepthOfFieldEffect",
+				"$properties": {
+					"Enabled": false,
+					"FarIntensity": 0.1,
+					"FocusDistance": 0.05,
+					"InFocusRadius": 30,
+					"NearIntensity": 0.75
+				}
+			},
+			"SunRays": {
+				"$className": "SunRaysEffect",
+				"$properties": {
+					"Enabled": true,
+					"Intensity": 0.01,
+					"Spread": 0.1
+				}
+			}
+		}
+	}
+}

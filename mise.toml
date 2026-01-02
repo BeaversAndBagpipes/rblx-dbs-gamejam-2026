@@ -1,0 +1,16 @@
+# This file lists tools managed by mise, a cross-platform toolchain manager.
+# For more information, see https://mise.jdx.dev/
+
+redactions = ["ASPHALT_API_KEY"]
+[env]
+_.file = { path = "apikeys.env", tools = true, redact = true }
+
+[tasks.rojoplugininstall]
+run = 'curl -L https://github.com/rojo-rbx/rojo/releases/latest/download/Rojo.rbxm -o "$(wslpath "$(cmd.exe /c "echo %USERPROFILE%" | tr -d "\r")")/AppData/Local/Roblox/Plugins/RojoManagedPlugin.rbxm"'
+
+# To add a new tool, add an entry to this table.
+[tools]
+"github:rojo-rbx/rojo" = {version = "latest"}
+"github:lune-org/lune" = {version = "latest"}
+"github:jacktabscode/asphalt" = {version = "latest"}
+watchexec = {version = "latest"}

@@ -1,0 +1,18 @@
+# Project place file
+
+
+# Roblox Studio lock files
+/*.rbxlx.lock
+/*.rbxl.lock
+
+# Affinity lock files
+*.*~lock~
+
+# Blender backups
+*.blend[0-9]
+
+# Ignore dotenv file for security reasons
+.env*
+!.env.example
+
+build/default.rbxl.lock
