@@ -78,12 +78,12 @@ function GarageManager:OnPlayerConnect(player : Player)
     }
 
 	-- Watch the carious player attributes for any changes, and resawpn the vehicle if needed
-	for _, attributeName in pairs(D_Attributes.PlayerData) do
-		if attributeName:find("Level_") then
-			player:GetAttributeChangedSignal(attributeName):Connect(function()
-				self:UpdatePlayerVehicle(player)
-			end)
-		end
+	for _, partName in pairs(D_Attributes.VehicleParts) do
+		local attrName = "Level_" .. partName	
+		player:GetAttributeChangedSignal(attrName):Connect(function()
+			print("GarageManager:OnPlayerConnect():", player.Name, "attribute", attrName, "changed, updating vehicle")
+			self:UpdatePlayerVehicle(player)
+		end)
 	end
 end
 
@@ -174,10 +174,11 @@ function GarageManager:SpawnVehicle(player : Player, spawnLocation : CFrame)
 	-- Now we loop though each of the parts and disable any models that don't match the players current level
 	for folderName, level in pairs(playerLevels) do
 		if folderName == "Vehicle" then continue end -- we don't look for a folder called "Vehicle"
-		print("Checking vehicle:", vehicle, "for folder:", folderName)
+
+		print("GarageManager:SpawnVehicle: Checking vehicle:", vehicle, "for folder:", folderName)
 		for _, child in vehicle:WaitForChild(folderName):GetChildren() do
 			if child:IsA("Model") then
-				if child.Name ~= folderName ..level then
+				if child.Name ~= "Level"..level then
 					Util.HideDescendants(child)
 				else
 					Util.ShowDescendants(child)
