@@ -36,6 +36,8 @@ _PlayerManager:AddListener(_GarageManager)
 _ServerRaceManager:Init({
     RequestRaceStart = _EventManager.Instances.RemoteEvent.RequestRaceStart,
     NotifyRaceStarting = _EventManager.Instances.RemoteEvent.NotifyRaceStarting,
+    RequestInputProcessing = _EventManager.Instances.RemoteEvent.RequestInputProcessing,
+    NotifyRacePhaseChange = _EventManager.Instances.RemoteEvent.NotifyRacePhaseChange,
     GarageManager = _GarageManager
 })
 
