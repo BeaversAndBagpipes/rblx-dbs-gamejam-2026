@@ -2,8 +2,8 @@
 
 -- Enum: E_PLAYERSTATE
 local E_PLAYERSTATE = {
-	ALIVE              = "ALIVE",
-	DEAD               = "DEAD",
+	LOBBY  = "LOBBY",
+	RACING = "RACING",
 } :: { [string]: string }
 
 return E_PLAYERSTATE
