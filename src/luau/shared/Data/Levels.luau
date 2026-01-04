@@ -11,47 +11,157 @@ local D_Attributes      = require(ReplicatedStorage.Shared.Data.Attributes)
 --local Folder_Sfx = Workspace:FindFirstChild("Sfx", true)
 
 -- Types
-type Level = { [number]: number } -- each "level" is a number representing the cost (in coins) to purchase the level, and the key is the level number
+type Level = { [number]: {
+	cost     : number,
+	icon     : string,
+	statValue: number,
+} } -- each "level" is a number representing the cost (in coins) to purchase the level, and the key is the level number
 
 -- Main
 -- This is a table of levels used in the game
 	-- The KEYS should not be changed, as they're used all over the codebase
 	-- The VALUES should be a number representing the cost (in coins) to purchase the level
 
-local levels = {} :: { [string]: {Level} }
+local levels = {} :: { [string]: { [number]: Level } }
 
 -- Vehicle body
-levels[D_Attributes.PlayerData.Level_Vehicle] = {
-	[1] = 0, -- all components start at level 1
-	[2] = 200,
-	[3] = 300,
-	[4] = 400,
-	[5] = 500,
+levels.Vehicle = {
+	[1] = {
+		cost     = 0,
+		name     = "Vehicle 1",
+		icon     = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[2] = {
+		cost     = 100,
+		name     = "Vehicle 2",
+		icon     = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[3] = {
+		cost     = 400,
+		name     = "Vehicle 3",
+		icon     = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[4] = {
+		cost     = 1000,
+		name     = "Vehicle 4",
+		icon     = "rbxassetid://1234567890",
+		statValue = 0,
+	}
 }
 
 -- Vehicle engine
-levels[D_Attributes.PlayerData.Level_Engine] = {
-	[1] = 0, -- all components start at level 1
-	[2] = 200,
-	[3] = 300,
-	[4] = 400,
-	[5] = 500,
+levels.Engine = {
+	[1]        = {
+		cost      = 0,
+		name      = "Engine 1",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[2]        = {
+		cost      = 100,
+		name      = "Engine 2",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[3]        = {
+		cost      = 400,
+		name      = "Engine 3",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[4]        = {
+		cost      = 1000,
+		name      = "Engine 4",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	}
 }
 
 -- Vehicle fuel system
-levels[D_Attributes.PlayerData.Level_FuelSystem] = {
-	[1] = 0, -- all components start at level 1
-	[2] = 200,
-	[3] = 300,
-	[4] = 400,
-	[5] = 500,
+levels.FuelSystem = {
+	[1]        = {
+		cost      = 0,
+		name      = "Fuel System 1",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[2]        = {
+		cost      = 100,
+		name      = "Fuel System 2",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[3]        = {
+		cost      = 400,
+		name      = "Fuel System 3",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[4]        = {
+		cost      = 1000,
+		name      = "Fuel System 4",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	}
 }
 
 -- Vehicle fuel tanks
-levels[D_Attributes.PlayerData.Level_FuelTanks] = {
-	[1] = 0, -- all components start at level 1
-	[2] = 200,
-	[3] = 300,
-	[4] = 400,
-	[5] = 500,
+levels.FuelTank = {
+	[1]        = {
+		cost      = 0,
+		name      = "Fuel Tank 1",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[2]        = {
+		cost      = 100,
+		name      = "Fuel Tank 2",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[3]        = {
+		cost      = 400,
+		name      = "Fuel Tank 3",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[4]        = {
+		cost      = 1000,
+		name      = "Fuel Tank 4",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	}
 }
+
+-- Engine nozzles
+levels.Nozzle = {
+	[1]        = {
+		cost      = 0,
+		name      = "Nozzle 1",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[2]        = {
+		cost      = 100,
+		name      = "Nozzle 2",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[3]        = {
+		cost      = 400,
+		name      = "Nozzle 3",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	},
+	[4]        = {
+		cost      = 1000,
+		name      = "Nozzle 4",
+		icon      = "rbxassetid://1234567890",
+		statValue = 0,
+	}
+}
+
+return levels
