@@ -1,0 +1,5 @@
+When I ask you to add a remote event for use with a system, the event needs to be created
+by adding to both the src\luau\shared\Data\Events.luau T_Events table as well as instantiating
+it where the other remote events are instantiated. The events then need to be passed into the systems :init() Functions
+in either the init.client.luau or init.server.luau entrypoint. It then also needs to be declared in TriggerHaptic
+systems InitConfig type.
