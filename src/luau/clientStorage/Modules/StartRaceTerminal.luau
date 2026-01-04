@@ -5,8 +5,8 @@ type InitConfig = {
 }
 
 function StartRaceTerminal:Init(config : InitConfig)
-    local startPrompt = workspace.Game.World:WaitForChild("StartRace")
-                                            :WaitForChild("StartRacePrompt")
+    local startPrompt = workspace.Game.World.Garage:WaitForChild("StartRace")
+                                                   :WaitForChild("StartRacePrompt")
     
     startPrompt.Triggered:Connect(function()
         config.RequestRaceStart:FireServer()
