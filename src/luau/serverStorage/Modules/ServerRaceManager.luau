@@ -7,6 +7,7 @@ type InitConfig = {
 }
 
 function ServerRaceManager:Init(config : InitConfig)
+    
 end
 
 return ServerRaceManager

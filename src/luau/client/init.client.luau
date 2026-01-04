@@ -10,8 +10,10 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local _EventManager     = require(ReplicatedStorage.Shared.Modules.EventManager)
 
 -- Singletons: Non-Gui
-local _HapticHandler    = require(ReplicatedStorage.ClientStorage.Modules.HapticHandler)
-local _SoundHandler     = require(ReplicatedStorage.ClientStorage.Modules.SoundHandler)
+local _HapticHandler       = require(ReplicatedStorage.ClientStorage.Modules.HapticHandler)
+local _SoundHandler        = require(ReplicatedStorage.ClientStorage.Modules.SoundHandler)
+local _StartRaceTerminal   = require(ReplicatedStorage.ClientStorage.Modules.StartRaceTerminal)
+local _ClientRaceController = require(ReplicatedStorage.ClientStorage.Modules.ClientRaceController)
 
 -- Singletons: GUI Generic
 local _ParticleManager  = require(ReplicatedStorage.ClientStorage.Modules.ParticleManager)
@@ -60,6 +62,15 @@ task.spawn(function()
 		HapticHandler     = _HapticHandler,
 		ParticleManager   = _ParticleManager,
 		SoundHandler      = _SoundHandler
+	})
+
+	_StartRaceTerminal:Init({
+		RequestRaceStart = _EventManager.Instances.RemoteEvent.RequestRaceStart
+	})
+
+	_ClientRaceController:Init({
+		RequestRaceStart = _EventManager.Instances.RemoteEvent.RequestRaceStart,
+		RaceEvents = _EventManager.Instances.RemoteEvent.Race
 	})
 
 	-- Fire Event
