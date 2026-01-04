@@ -68,20 +68,20 @@ function UpgradeManager:OnRequestUpgrade(
 	-- Ensure the requested level is higher
 	if currentLevel >= upgrade.level then
 		-- Player already has this level
-		warn("Player already has this level item", player.Name, upgrade.name, upgrade.level)
+		warn("UpgradeManager:OnRequestUpgrade: Player already has this level item", player.Name, upgrade.name, upgrade.level)
 		return
 	end
 
 	-- Ensure the requested level is not higher than the max level
 	if upgrade.level > #D_Levels[upgrade.name] then
-		warn("Requested level is higher than the max level", player.Name, upgrade.name, upgrade.level)
+		warn("UpgradeManager:OnRequestUpgrade: Requested level is higher than the max level", player.Name, upgrade.name, upgrade.level)
 		return
 	end
 
 	-- Ensure they have enough coins to buy the upgrade
 	-- We do protect against this in the client, but cheaters gonna cheat
 	if currentCoins < D_Levels[upgrade.name][upgrade.level].cost then
-		warn("Player does not have enough coins to buy the upgrade", player.Name, upgrade.name, upgrade.level)
+		warn("UpgradeManager:OnRequestUpgrade: Player does not have enough coins to buy the upgrade", player.Name, upgrade.name, upgrade.level)
 		return
 	end
 
