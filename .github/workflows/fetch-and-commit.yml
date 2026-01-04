@@ -1,0 +1,38 @@
+name: Fetch and Commit
+
+on:
+    workflow_dispatch: # Allows manual execution from the Actions page
+
+jobs:
+    fetch-and-commit:
+        if: github.event_name == 'workflow_dispatch'
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v5
+
+            - name: Install mise
+              run: |
+                  curl https://mise.run | sh
+                  echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+            - name: Install mise packages
+              run: |
+                  mise install
+
+            - name: Create .env file
+              run: |
+                  echo 'ROBLOX_API_KEY="${{ secrets.USER_API_KEY }}"' >> .env
+
+            - name: Run SaveAssets.luau
+              run: |
+                  eval "$($HOME/.local/bin/mise activate bash)" # needed to ensure we can run lune
+                  cd lune
+                  lune run SaveAssets.luau -- --confirm-all
+
+            - name: Commit and push changes
+              uses: devops-infra/action-commit-push@v1.0.3
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  commit_message: "chore: fetch latest assets from Build Scenes"
