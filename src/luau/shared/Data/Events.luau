@@ -50,6 +50,7 @@ Events.RemoteEvent.TriggerSound     = Instance.new("RemoteEvent")  :: RemoteEven
 Events.RemoteEvent.RequestRaceStart = Instance.new("RemoteEvent")  :: RemoteEvent
 Events.RemoteEvent.RequestUpgrade   = Instance.new("RemoteEvent")  :: RemoteEvent
 -- Race related
+Events.RemoteEvent.Race             = {} :: { [string]: RemoteEvent }
 Events.RemoteEvent.Race.Test        = Instance.new("RemoteEvent")  :: RemoteEvent
 
 -- Remote Functions
