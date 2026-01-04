@@ -20,6 +20,7 @@ The original template repository can be found here: https://github.com/stom66/rb
 
 - [SRC Scene `9491423168` - used for development](https://create.roblox.com/dashboard/creations/experiences/9491423168/overview)
 - [Live Scene `9491477687` - used for deployment](https://create.roblox.com/dashboard/creations/experiences/9491423168/overview)
+- [DBS 2026 GameJam Official Participant Rulebook](https://docs.google.com/document/d/1gcRJeNHw5uoHVPrvav9fIacz-hSPysEkEWYDJ8OO5Jk/edit?tab=t.0)
 
 ---
 
