@@ -292,7 +292,7 @@ function PlayerManager:SavePlayerStats(player: Player)
 		data[name] = value
 	end
 
-	DS_PlayerData:Set(player.UserId, data)
+	DS_PlayerData:SetAsync(player.UserId, data)
 end
 
 function PlayerManager:SaveAllPlayerStats()
@@ -314,7 +314,7 @@ function PlayerManager:GetPlayerData(
 	player: Player
 )
 	local defaultData = {
-		Coins             = 1000,
+		Coins             = 100,
 		Level_Vehicle     = 1,
 		Level_Engine      = 1,
 		Level_FuelSystem  = 1,
