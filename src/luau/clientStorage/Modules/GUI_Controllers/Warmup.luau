@@ -29,6 +29,31 @@ local PlayerGui         = LocalPlayer:WaitForChild("PlayerGui") :: PlayerGui
 local Gui               = PlayerGui:WaitForChild("GUI"):WaitForChild("UI_Warmup") :: ScreenGui
 
 
+-- ████████╗██╗   ██╗██████╗ ███████╗
+-- ╚══██╔══╝╚██╗ ██╔╝██╔══██╗██╔════╝
+--    ██║    ╚████╔╝ ██████╔╝█████╗  
+--    ██║     ╚██╔╝  ██╔═══╝ ██╔══╝  
+--    ██║      ██║   ██║     ███████╗
+--    ╚═╝      ╚═╝   ╚═╝     ╚══════╝
+--
+
+export type T_Warmup = {
+	Init: (
+		self: T_Warmup,
+		config: InitConfig
+	) -> nil,
+	Show: (
+		self: T_Warmup
+	) -> nil,
+	Hide: (
+		self: T_Warmup
+	) -> nil,
+	SetValue: (
+		self: T_Warmup
+	) -> nil,
+}
+
+
 
 -- ███╗   ███╗ █████╗ ██╗███╗   ██╗
 -- ████╗ ████║██╔══██╗██║████╗  ██║
@@ -38,7 +63,7 @@ local Gui               = PlayerGui:WaitForChild("GUI"):WaitForChild("UI_Warmup"
 -- ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
 --
 
-local Warmup = {}
+local Warmup = {} :: T_Warmup
 
 
 -- ██╗███╗   ██╗██╗████████╗
