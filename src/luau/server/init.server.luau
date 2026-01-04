@@ -18,14 +18,13 @@ local _ServerRaceManager = require(ServerStorage.Modules.ServerRaceManager)
 -- Init
 _EventManager:Init()
 _PlayerManager:Init()
-
 _UpgradeManager:Init({
-    _EventManager.Instances.RemoteEvent.RequestUpgrade
+    RequestUpgrade = _EventManager.Instances.RemoteEvent.RequestUpgrade
 })
 
 _ServerRaceManager:Init({
-    _EventManager.Instances.RemoteEvent.RequestRaceStart,
-	_EventManager.Instances.RemoteEvent.Race
+    RequestRaceStart = _EventManager.Instances.RemoteEvent.RequestRaceStart,
+	
 })
 
 

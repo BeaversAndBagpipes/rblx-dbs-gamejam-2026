@@ -17,10 +17,7 @@ export type T_Events = {
 		TriggerMessage: RemoteEvent,
 		TriggerSound  : RemoteEvent,
 		RequestRaceStart : RemoteEvent,
-		RequestUpgrade : RemoteEvent,
-		Race: {
-			Test : RemoteEvent
-		}
+		RequestUpgrade : RemoteEvent
 	},
 	RemoteFunction: {
 		--GetPlayerData: RemoteFunction,
@@ -50,8 +47,7 @@ Events.RemoteEvent.TriggerSound     = Instance.new("RemoteEvent")  :: RemoteEven
 Events.RemoteEvent.RequestRaceStart = Instance.new("RemoteEvent")  :: RemoteEvent
 Events.RemoteEvent.RequestUpgrade   = Instance.new("RemoteEvent")  :: RemoteEvent
 -- Race related
-Events.RemoteEvent.Race             = {} :: { [string]: RemoteEvent }
-Events.RemoteEvent.Race.Test        = Instance.new("RemoteEvent")  :: RemoteEvent
+----stuff goes here
 
 -- Remote Functions
 Events.RemoteFunction               = {} :: { [string]: RemoteFunction }
