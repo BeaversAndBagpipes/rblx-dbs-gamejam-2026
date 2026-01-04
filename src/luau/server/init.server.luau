@@ -20,8 +20,7 @@ _EventManager:Init()
 _PlayerManager:Init()
 
 _UpgradeManager:Init({
-    _EventManager.Instances.RemoteEvent.RequestUpgrade,
-    _PlayerManager,
+    _EventManager.Instances.RemoteEvent.RequestUpgrade
 })
 
 _ServerRaceManager:Init({
