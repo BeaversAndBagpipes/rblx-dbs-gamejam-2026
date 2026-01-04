@@ -58,6 +58,14 @@ local D_Attributes = {
 	-- Misc
 	Anim = {
 		InProgress = "AnimInProgress" -- used by the anim lib to check if an instance is currently being animated
+	},
+
+	VehicleParts = {
+		Vehicle     = "Vehicle",
+		Engine      = "Engine",
+		FuelSystem  = "FuelSystem",
+		FuelTank    = "FuelTank",
+		Nozzle      = "Nozzle",
 	}
 
 }

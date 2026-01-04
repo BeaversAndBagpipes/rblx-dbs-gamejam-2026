@@ -82,18 +82,9 @@ function Upgrades:Init(config: InitConfig)
 
 	self.currentView = ""
 
-	-- List of the zones
-	self.ZoneNames = {
-		"Vehicle",
-		"Engine",
-		"FuelSystem",
-		"FuelTank",
-		"Nozzle",
-	}
-
 	-- Create the zones
 	self.Zones = {}
-	for index, name in self.ZoneNames do
+	for _, name in pairs(D_Attributes.VehicleParts) do
 		local folder = MetaParts:FindFirstChild("Upgrade_" .. name, true) :: Folder
 		print("Creating zone:", name, folder)
 		self.Zones[name] = Zone.new(folder)

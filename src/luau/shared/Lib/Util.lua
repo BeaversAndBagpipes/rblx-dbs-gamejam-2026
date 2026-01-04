@@ -196,6 +196,32 @@ function Util.MixValues(a, b, ratio, clamp)
 end
 
 
+
+-- ██╗███╗   ██╗███████╗████████╗ █████╗ ███╗   ██╗ ██████╗███████╗███████╗
+-- ██║████╗  ██║██╔════╝╚══██╔══╝██╔══██╗████╗  ██║██╔════╝██╔════╝██╔════╝
+-- ██║██╔██╗ ██║███████╗   ██║   ███████║██╔██╗ ██║██║     █████╗  ███████╗
+-- ██║██║╚██╗██║╚════██║   ██║   ██╔══██║██║╚██╗██║██║     ██╔══╝  ╚════██║
+-- ██║██║ ╚████║███████║   ██║   ██║  ██║██║ ╚████║╚██████╗███████╗███████║
+-- ╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝╚══════╝
+--
+
+function Util.ShowDescendants(instance: Instance)
+	for _, child in instance:GetDescendants() do
+		if child:IsA("BasePart") then
+			child.Transparency = 0
+		end
+	end
+end
+
+
+function Util.HideDescendants(instance: Instance)
+	for _, child in instance:GetDescendants() do
+		if child:IsA("BasePart") then
+			child.Transparency = 1
+		end
+	end
+end
+
 -- ██████╗ ███████╗████████╗██╗   ██╗██████╗ ███╗   ██╗
 -- ██╔══██╗██╔════╝╚══██╔══╝██║   ██║██╔══██╗████╗  ██║
 -- ██████╔╝█████╗     ██║   ██║   ██║██████╔╝██╔██╗ ██║
