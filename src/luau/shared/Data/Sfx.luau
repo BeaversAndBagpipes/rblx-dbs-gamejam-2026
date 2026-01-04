@@ -28,6 +28,8 @@ sfx.Notify_PopUp   = { Folder_Sfx:WaitForChild("pop-up") }    -- used when a win
 sfx.Button_Generic = { Folder_Sfx:WaitForChild("btn-click") } -- used by non-specific UI buttons
 sfx.Button_Close   = { Folder_Sfx:WaitForChild("btn-click") } -- used to close/dismiss pop-up windows
 
+sfx.Upgrade        = {Folder_Sfx:WaitForChild("upgrade01"), Folder_Sfx:WaitForChild("upgrade02"), Folder_Sfx:WaitForChild("upgrade03")}
+
 -- Music
 sfx.Music_Lobby    = Folder_Sfx:WaitForChild("happy-cheerful-folk-pop-264393")
 
