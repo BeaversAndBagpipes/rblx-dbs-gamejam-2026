@@ -53,6 +53,7 @@ local Upgrades = {}
 
 type InitConfig = {
 	WindowManager  : T_WindowManager.WindowManager,
+	RE_RequestUpgrade: RemoteEvent,
 	BE_TriggerSound: BindableEvent
 }
 
@@ -86,7 +87,7 @@ function Upgrades:Init(config: InitConfig)
 	self.Zones = {}
 	for _, name in pairs(D_Attributes.VehicleParts) do
 		local folder = MetaParts:FindFirstChild("Upgrade_" .. name, true) :: Folder
-		print("Creating zone:", name, folder)
+		print("Upgrades: Init(): Creating zone:", name, folder)
 		self.Zones[name] = Zone.new(folder)
 		for _, child in folder:GetChildren() do
 			if child:IsA("BasePart") then
@@ -97,11 +98,11 @@ function Upgrades:Init(config: InitConfig)
 	-- Connect the zones to the player entered event
 	for name, zone in pairs(self.Zones) do
 		zone.playerEntered:Connect(function(player)
-			print("Zone entered:", name)
+			print("Upgrades: Zone entered:", name)
 			self:Show(name)
 		end)
 		zone.playerExited:Connect(function(player)
-			print("Zone exited:", name)
+			print("Upgrades: Zone exited:", name)
 			self:Hide(name)
 		end)
 	end
@@ -126,7 +127,7 @@ end
 --
 
 function Upgrades:Show(name: string)
-	print("Upgrades:Show()")
+	print("Upgrades: Upgrades:Show()")
 	if self.currentView ~= "" then
 		-- another window is visible, hide it
 		self:Hide(self.currentView)
@@ -139,7 +140,7 @@ function Upgrades:Show(name: string)
 end
 
 function Upgrades:Hide(name: string)
-	print("Upgrades:Hide()")
+	print("Upgrades: Upgrades:Hide()")
 	if self.currentView ~= name then
 		return
 	end
@@ -171,18 +172,18 @@ function Upgrades:UpdateView(name: string)
 
 	-- Get the players current level of the upgrade
 	local currentLevel = LocalPlayer:GetAttribute(D_Attributes.PlayerData["Level_"..name]) or 1
-	print("Current level of", name, "is", currentLevel)
+	print("Upgrades:UpdateView(): Current level of", name, "is", currentLevel)
 
 	-- Create the new frames
 	for index, level in ipairs(D_Levels[name]) do
-		local frame = self.Frame_Default:Clone()
-		frame.Name = "Frame_" .. level.name
-		frame.Parent = self.Frame_Grid
+		local frame   = self.Frame_Default:Clone()
+		frame.Name    = "Frame_" .. level.name
+		frame.Parent  = self.Frame_Grid
 		frame.Visible = true
 
 
 		local isOwned = currentLevel >= index
-		print("Is", name, "level", index, "owned?", isOwned)
+		--print("Upgrades: Is", name, "level", index, "owned?", isOwned)
 
 		local img_icon = frame:FindFirstChild("Img_Preview", true):: ImageLabel
 		img_icon.Image = level.icon
