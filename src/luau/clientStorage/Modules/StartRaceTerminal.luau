@@ -8,7 +8,7 @@ function StartRaceTerminal:Init(config : InitConfig)
     local startPrompt = workspace.Game.World:WaitForChild("StartRace")
                                             :WaitForChild("StartRacePrompt")
     
-    startPrompt.Triggered:Connect(function(player)
+    startPrompt.Triggered:Connect(function()
         config.RequestRaceStart:FireServer()
     end)
 
