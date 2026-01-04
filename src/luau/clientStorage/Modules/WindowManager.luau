@@ -71,6 +71,7 @@ type InitConfig = {
 	BE_ShowWindow    : BindableEvent,
 	BE_TriggerMessage: BindableEvent,
 	BE_TriggerSound  : BindableEvent,
+	RE_RequestUpgrade: RemoteEvent,
 	RE_TriggerMessage: RemoteEvent,
 	HapticHandler    : T_HapticHandler.HapticHandler,
 	ParticleManager  : T_ParticleManager.ParticleManager,
@@ -122,8 +123,9 @@ function WindowManager:Init(config: InitConfig)
 
 	-- UI_Upgrades
 	_UI_Upgrades:Init({
-		WindowManager   = self,
-		BE_TriggerSound = config.BE_TriggerSound
+		BE_TriggerSound   = config.BE_TriggerSound,
+		RE_RequestUpgrade = config.RE_RequestUpgrade,
+		WindowManager     = self,
 	})
 
 	-- UI_PlayerPrefs

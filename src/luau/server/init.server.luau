@@ -24,7 +24,7 @@ _GarageManager:Init({
 })
 
 _UpgradeManager:Init({
-    RequestUpgrade = _EventManager.Instances.RemoteEvent.RequestUpgrade
+    RE_RequestUpgrade = _EventManager.Instances.RemoteEvent.RequestUpgrade
 })
 
 _PlayerManager:Init()

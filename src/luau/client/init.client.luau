@@ -57,8 +57,9 @@ task.spawn(function()
 		BE_OnClientLoad   = _EventManager.Instances.BindableEvent.OnClientLoad,
 		BE_ShowWindow     = _EventManager.Instances.BindableEvent.ShowWindow,
 		BE_TriggerMessage = _EventManager.Instances.BindableEvent.TriggerMessage,
-		RE_TriggerMessage = _EventManager.Instances.RemoteEvent.TriggerMessage,
 		BE_TriggerSound   = _EventManager.Instances.BindableEvent.TriggerSound,
+		RE_RequestUpgrade = _EventManager.Instances.RemoteEvent.RequestUpgrade,
+		RE_TriggerMessage = _EventManager.Instances.RemoteEvent.TriggerMessage,
 		HapticHandler     = _HapticHandler,
 		ParticleManager   = _ParticleManager,
 		SoundHandler      = _SoundHandler

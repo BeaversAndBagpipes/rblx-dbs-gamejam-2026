@@ -61,6 +61,9 @@ function Upgrades:Init(config: InitConfig)
 	assert(config.BE_TriggerSound, "BE_TriggerSound not provided")
 	self.BE_TriggerSound = config.BE_TriggerSound
 
+	assert(config.RE_RequestUpgrade, "RE_RequestUpgrade not provided")
+	self.RE_RequestUpgrade = config.RE_RequestUpgrade
+
 	assert(config.WindowManager, "WindowManager not provided")
 	self.WindowManager = config.WindowManager
 
@@ -111,6 +114,13 @@ function Upgrades:Init(config: InitConfig)
 			self:Hide(name)
 		end)
 	end
+
+	-- Watch players level attributes for changes
+	for name, _ in pairs(self.Zones) do
+		LocalPlayer:GetAttributeChangedSignal(D_Attributes.PlayerData["Level_"..name]):Connect(function()
+			self:UpdateView()
+		end)
+	end
 end
 
 
@@ -156,6 +166,9 @@ end
 --
 
 function Upgrades:UpdateView(name: string)
+	if not name then name = self.currentView end
+	if name == "" then return end
+
 	self.Text_Title.Text = "Upgrade " .. name
 
 	-- Clear the current frames in the grid
@@ -165,14 +178,20 @@ function Upgrades:UpdateView(name: string)
 		end
 	end
 
+	-- Get the players current level of the upgrade
+	local currentLevel = LocalPlayer:GetAttribute(D_Attributes.PlayerData["Level_"..name]) or 1
+	print("Current level of", name, "is", currentLevel)
+
 	-- Create the new frames
-	for index, level in D_Levels[name] do
+	for index, level in ipairs(D_Levels[name]) do
 		local frame = self.Frame_Default:Clone()
 		frame.Name = "Frame_" .. level.name
 		frame.Parent = self.Frame_Grid
 		frame.Visible = true
 
-		local isOwned = LocalPlayer:GetAttribute(D_Attributes.PlayerData["Level_"..name]) or 1 >= index
+
+		local isOwned = currentLevel >= index
+		print("Is", name, "level", index, "owned?", isOwned)
 
 		local img_icon = frame:FindFirstChild("Img_Preview", true):: ImageLabel
 		img_icon.Image = level.icon
@@ -190,26 +209,16 @@ function Upgrades:UpdateView(name: string)
 		Img_Background.Visible = false
 
 		frame.MouseEnter:Connect(function()
-			Anim.FadeIn(Img_Background)
 			Img_Background.Visible = true
-			print("MouseEnter")
+			Anim.FadeIn(Img_Background)
 		end)
 		frame.MouseLeave:Connect(function()
 			Anim.FadeOut(Img_Background)
-			Img_Background.Visible = false
-			print("MouseLeave")
 		end)
 
 		local Btn_Purchase = frame:FindFirstChild("Btn_Purchase", true):: TextButton
 		Btn_Purchase.MouseButton1Click:Connect(function()
-			if isOwned then
-				-- TODO: alert the player they already own this
-				self.BE_TriggerSound:Fire(D_Sfx.Generic_Error)
-				return
-			else
-				self:Purchase(name, index)
-				self.BE_TriggerSound:Fire(D_Sfx.Upgrade)
-			end
+			self:Purchase(name, index)
 		end)
 	end
 end
@@ -224,13 +233,20 @@ end
 --
 
 function Upgrades:Purchase(name: string, index: number)
-	local level = D_Levels[name][index]
-	if LocalPlayer:GetAttribute(D_Attributes.PlayerData.Coins) < level.cost then
-		-- TODO: alert the player they're too broke to afford this
+
+	local currentLevel = LocalPlayer:GetAttribute(D_Attributes.PlayerData["Level_"..name]) or 1
+	local isOwned      = currentLevel >= index
+	local level        = D_Levels[name][index]
+
+	if isOwned or LocalPlayer:GetAttribute(D_Attributes.PlayerData.Coins) < level.cost then
+		-- Player can't purchase this
+		self.BE_TriggerSound:Fire(D_Sfx.Generic_Error)
+		return
+	else
+		self.BE_TriggerSound:Fire(D_Sfx.Upgrade)
+		self.RE_RequestUpgrade:FireServer({name = name, level = index})
 		return
 	end
-	LocalPlayer:SetAttribute(D_Attributes.PlayerData.Coins, LocalPlayer:GetAttribute(D_Attributes.PlayerData.Coins) - level.cost)
-	LocalPlayer:SetAttribute(D_Attributes.PlayerData["Level_"..name], index)
 end
 
 

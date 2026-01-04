@@ -28,8 +28,8 @@ export type ParticleBurst = {
 }
 
 export type UpgradeDescription = {
-	tier	: string,
-	level 	: number
+	name : string,
+	level: number
 }
 
 return {}
