@@ -13,18 +13,30 @@ local _PlayerManager = require(ServerStorage.Modules.PlayerManager)
 -- DBS Jam singletons
 local _UpgradeManager     = require(ServerStorage.Modules.UpgradeManager)
 local _ServerRaceManager = require(ServerStorage.Modules.ServerRaceManager)
+local _GarageManager = require(ServerStorage.Modules.GarageManager)
 
 
 -- Init
 _EventManager:Init()
-_PlayerManager:Init()
+
+_GarageManager:Init({
+
+})
+
 _UpgradeManager:Init({
     RequestUpgrade = _EventManager.Instances.RemoteEvent.RequestUpgrade
 })
 
+_PlayerManager:Init()
+_PlayerManager:AddListener(_GarageManager)
+--_PlayerManager:AddListener(_UpgradeManager)
+
+
+
 _ServerRaceManager:Init({
     RequestRaceStart = _EventManager.Instances.RemoteEvent.RequestRaceStart,
-	
+    NotifyRaceStarting = _EventManager.Instances.RemoteEvent.NotifyRaceStarting,
+    GarageManager = _GarageManager
 })
 
 
