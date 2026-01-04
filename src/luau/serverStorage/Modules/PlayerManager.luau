@@ -302,6 +302,18 @@ function PlayerManager:GetPlayerData(
 
 	local playerData = DS_PlayerData:GetAsync(player.UserId)
 
+	-- Ensure default data is set
+	if not playerData or Util.TableIsEmpty(playerData) then
+		playerData = {
+			Coins             = 0,
+			Level_Vehicle     = 1,
+			Level_Engine      = 1,
+			Level_FuelSystem  = 1,
+			Level_FuelTanks   = 1,
+			Level_EngineBells = 1,
+		}
+	end
+
 	return playerData
 end
 

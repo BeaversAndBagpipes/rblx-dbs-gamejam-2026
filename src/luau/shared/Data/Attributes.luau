@@ -30,13 +30,15 @@ local D_Attributes = {
 		TotalLogins          = "TotalLogins",          -- Stat: total times the player has logged in
 		GameVersion          = "GameVersion",          -- Stat: version of the game the player data was last touched by
 
-		-- More stats can be added here, eg:
-		--[[
 		GamesPlayed          = "GamesPlayed",          -- Stat: total number of games player
-		GamesWon             = "GamesWon",             -- Stat: total number of games won
-		GamesWonInARow       = "GamesWonInARow",       -- Stat: total number of games won in a row
-		]]
-		Coins              = "Coins",              -- Stat: total number of coins the player has
+		MaxSpeed             = "MaxSpeed",             -- Stat: max speed the player has achieved
+
+		Coins                = "Coins",              -- Stat  : total number of coins the player has
+		Level_Vehicle        = "Level_Vehicle",      -- Stat  : level of the vehicle the player has - note when this is upgrades the other vehicle stats are reset
+		Level_Engine         = "Level_Engine",       -- Stat  : level of the engine the player has
+		Level_FuelSystem     = "Level_FuelSystem",   -- Stat  : level of the fuel system the player has
+		Level_FuelTanks      = "Level_FuelTanks",    -- Stat  : level of the fuel tanks the player has
+		Level_EngineBells    = "Level_EngineBells",  -- Stat  : level of the engine bells the player has
 	},
 
 	-- General default attributes, used for animations mostly
