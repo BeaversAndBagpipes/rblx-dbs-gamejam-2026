@@ -4,7 +4,9 @@
 		"$className": "DataModel",
 
 		"Workspace": {
-			"$path": "src/rbxm/Workspace.rbxm"
+			"Game": {
+				"$path": "src/rbxm/Workspace.rbxm"
+			}
 		},
 
 		"ReplicatedStorage": {
