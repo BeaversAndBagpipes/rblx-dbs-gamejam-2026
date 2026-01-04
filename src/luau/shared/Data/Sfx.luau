@@ -31,5 +31,8 @@ sfx.Button_Close   = { Folder_Sfx:WaitForChild("btn-click") } -- used to close/d
 -- Music
 sfx.Music_Lobby    = Folder_Sfx:WaitForChild("happy-cheerful-folk-pop-264393")
 
+sfx.UI_CoinBalance_Increase = { Folder_Sfx:WaitForChild("Coins01"), Folder_Sfx:WaitForChild("Coins02"), Folder_Sfx:WaitForChild("Coins03") }
+sfx.UI_CoinBalance_Decrease = { Folder_Sfx:WaitForChild("Coins01"), Folder_Sfx:WaitForChild("Coins02"), Folder_Sfx:WaitForChild("Coins03") }
+
 -- Return
 return sfx

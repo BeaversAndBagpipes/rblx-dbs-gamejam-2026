@@ -17,6 +17,7 @@ local T_WindowManager   = require(ReplicatedStorage.ClientStorage.Types.WindowMa
 local _UI_Loading       = require(ReplicatedStorage.ClientStorage.Modules.GUI_Controllers.Loading)
 local _UI_Message       = require(ReplicatedStorage.ClientStorage.Modules.GUI_Controllers.Message)
 local _UI_PlayerPrefs   = require(ReplicatedStorage.ClientStorage.Modules.GUI_Controllers.PlayerPrefs)
+local _UI_Coins         = require(ReplicatedStorage.ClientStorage.Modules.GUI_Controllers.Coins)
 
 -- Modules
 local Anim              = require(ReplicatedStorage.Shared.Lib["Anim.GUI"])
@@ -68,6 +69,7 @@ type InitConfig = {
 	BE_OnClientLoad  : BindableEvent,
 	BE_ShowWindow    : BindableEvent,
 	BE_TriggerMessage: BindableEvent,
+	BE_TriggerSound  : BindableEvent,
 	RE_TriggerMessage: RemoteEvent,
 	HapticHandler    : T_HapticHandler.HapticHandler,
 	ParticleManager  : T_ParticleManager.ParticleManager,
@@ -112,8 +114,13 @@ function WindowManager:Init(config: InitConfig)
 	assert(config.SoundHandler, "SoundHandler not provided")
 	assert(config.ParticleManager, "ParticleManager not provided")
 
-	_UI_PlayerPrefs:Init(self, config.HapticHandler, config.SoundHandler, config.ParticleManager)
+	-- UI_Coins
+	_UI_Coins:Init({
+		BE_TriggerSound = config.BE_TriggerSound
+	})
 
+	-- UI_PlayerPrefs
+	_UI_PlayerPrefs:Init(self, config.HapticHandler, config.SoundHandler, config.ParticleManager)
 end
 
 
@@ -315,5 +322,4 @@ end
 -- ╚═╝  ╚═╝╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
 --
 
--- Create and return Singleton
 return WindowManager :: T_WindowManager.WindowManager

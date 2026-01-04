@@ -9,6 +9,7 @@ local TweenService      = game:GetService("TweenService") :: TweenService
 -- Modules
 --local Settings        = require(ReplicatedStorage.Shared.Settings)
 local Util              = require(ReplicatedStorage.Shared.Lib.Util)
+local AnimGUI           = require(ReplicatedStorage.Shared.Lib["Anim.GUI"])
 local ParticleEmitter   = require(ReplicatedStorage.Shared.Lib.ParticleEmitter)
 
 -- Data
@@ -259,8 +260,8 @@ function Anim.DoParticleStream(
 	-- every particle has a random easing style, direction, and strength
 	particleEmitter.onSpawn = function(particle)
 		particle.maxAge          = moveDuration
-		particle.easingStyle     = Anim.GetRandomEasingStyle()
-		particle.easingDirection = Anim.GetRandomEasingDirection()
+		particle.easingStyle     = AnimGUI.GetRandomEasingStyle()
+		particle.easingDirection = AnimGUI.GetRandomEasingDirection()
 		particle.easingStrength  = math.random()
 		particle.element.Size    = UDim2.fromOffset(0, 0)
 		particle.element.Visible = true

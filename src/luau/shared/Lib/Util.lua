@@ -153,6 +153,48 @@ function Util.FormatKey(key: string): string
 end
 
 
+---comment: Formats a number with commas as thousands separators
+---@param number number
+---@return any
+function Util.FormatNumber(number: number): string
+	return tostring(number):gsub("(%d)(%d%d%d)", "%1,%2")
+end
+
+
+
+-- ███╗   ███╗ █████╗ ████████╗██╗  ██╗
+-- ████╗ ████║██╔══██╗╚══██╔══╝██║  ██║
+-- ██╔████╔██║███████║   ██║   ███████║
+-- ██║╚██╔╝██║██╔══██║   ██║   ██╔══██║
+-- ██║ ╚═╝ ██║██║  ██║   ██║   ██║  ██║
+-- ╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
+--
+
+---
+-- Returns a mix of two values, similar to blender mix node
+-- ratio 0 is all a, ratio 1 is all b
+-- clamp will ensure a range of 0-1
+-- @param a First value.
+-- @param b Second value.
+-- @param ratio Mix ratio (0-1).
+-- @param clamp Clamp result to 0-1.
+-- @return number Mixed value.
+function Util.MixValues(a, b, ratio, clamp)
+	-- returns a mix of two values, similar to blender mix node
+	-- ratio 0 is all a, ratio 1 is all b
+	-- clamp will ensure a range of 0-1
+	ratio = math.min(1, math.max(0, ratio or 0.5))
+	clamp = clamp
+	if clamp == nil then clamp = false end
+
+	local result = (b * ratio) + (a * (1-ratio))
+	if clamp then
+		result = math.min(1, math.max(0, result))
+	end
+
+	return result
+end
+
 
 -- ██████╗ ███████╗████████╗██╗   ██╗██████╗ ███╗   ██╗
 -- ██╔══██╗██╔════╝╚══██╔══╝██║   ██║██╔══██╗████╗  ██║
