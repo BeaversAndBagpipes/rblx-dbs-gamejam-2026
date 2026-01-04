@@ -36,6 +36,7 @@ local D_Attributes = {
 		GamesWon             = "GamesWon",             -- Stat: total number of games won
 		GamesWonInARow       = "GamesWonInARow",       -- Stat: total number of games won in a row
 		]]
+		Coins              = "Coins",              -- Stat: total number of coins the player has
 	},
 
 	-- General default attributes, used for animations mostly
