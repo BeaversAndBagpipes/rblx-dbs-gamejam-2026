@@ -295,26 +295,24 @@ end
 function PlayerManager:GetPlayerData(
 	player: Player
 )
+	local defaultData = {
+		Coins             = 1000,
+		Level_Vehicle     = 1,
+		Level_Engine      = 1,
+		Level_FuelSystem  = 1,
+		Level_FuelTanks   = 1,
+		Level_EngineBells = 1,
+	}
+
 	if not DS_PlayerData then
 		warn("PlayerManager:GetPlayerData: DS_PlayerData is not available")
-		return
+		return defaultData
 	end
 
 	local playerData = DS_PlayerData:GetAsync(player.UserId)
+	print("PlayerManager:GetPlayerData: playerData", playerData)
 
-	-- Ensure default data is set
-	if not playerData or Util.TableIsEmpty(playerData) then
-		playerData = {
-			Coins             = 0,
-			Level_Vehicle     = 1,
-			Level_Engine      = 1,
-			Level_FuelSystem  = 1,
-			Level_FuelTanks   = 1,
-			Level_EngineBells = 1,
-		}
-	end
-
-	return playerData
+	return Util.TableJoin(defaultData, playerData)
 end
 
 
