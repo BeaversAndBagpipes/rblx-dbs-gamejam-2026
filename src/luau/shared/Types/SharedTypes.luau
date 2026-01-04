@@ -32,4 +32,9 @@ export type UpgradeDescription = {
 	level: number
 }
 
+export type RaceInfo = {
+	velocity : number,
+	totalDistance : number
+}
+
 return {}

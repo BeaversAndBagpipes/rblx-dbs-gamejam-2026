@@ -22,7 +22,8 @@ function ServerRaceManager:Init(config : InitConfig)
         self.ActiveRaces[player] = {velocity = 20, totalDistance = 0}
 
         local playerVehicle = config.GarageManager:GetPlayerVehicle(player)
-        playerVehicle = playerVehicle:Clone();
+        playerVehicle = playerVehicle:Clone()
+        playerVehicle.Parent = workspace
         playerVehicle:PivotTo(self.VehicleSpawn.CFrame)
         config.NotifyRaceStarting:FireClient(player, playerVehicle)
 
