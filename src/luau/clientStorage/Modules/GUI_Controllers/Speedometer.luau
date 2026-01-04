@@ -26,7 +26,7 @@ local Zone              = require(ReplicatedStorage.Shared.Lib.ZonePlus)
 -- Local vars
 local LocalPlayer       = Players.LocalPlayer :: Player
 local PlayerGui         = LocalPlayer:WaitForChild("PlayerGui") :: PlayerGui
-local Gui               = PlayerGui:WaitForChild("GUI"):WaitForChild("UI_Warmup") :: ScreenGui
+local Gui               = PlayerGui:WaitForChild("GUI"):WaitForChild("UI_Speed") :: ScreenGui
 
 
 -- ████████╗██╗   ██╗██████╗ ███████╗
@@ -37,19 +37,21 @@ local Gui               = PlayerGui:WaitForChild("GUI"):WaitForChild("UI_Warmup"
 --    ╚═╝      ╚═╝   ╚═╝     ╚══════╝
 --
 
-export type T_Warmup = {
+export type T_Speedometer = {
 	Init: (
-		self: T_Warmup,
+		self: T_Speedometer,
 		config: InitConfig
 	) -> nil,
 	Show: (
-		self: T_Warmup
+		self: T_Speedometer
 	) -> nil,
 	Hide: (
-		self: T_Warmup
+		self: T_Speedometer
 	) -> nil,
 	SetValue: (
-		self: T_Warmup
+		self: T_Speedometer,
+		ratio: number,
+		trueValue: number
 	) -> nil,
 }
 
@@ -63,7 +65,7 @@ export type T_Warmup = {
 -- ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
 --
 
-local Warmup = {} :: T_Warmup
+local Speedometer = {} :: T_Speedometer
 
 
 -- ██╗███╗   ██╗██╗████████╗
@@ -76,19 +78,16 @@ local Warmup = {} :: T_Warmup
 
 type InitConfig = {
 	BE_TriggerSound: BindableEvent,
-	Btn_Func_Press: () -> (),
-	Btn_Func_Release: () -> (),
+	Btn_Func: () -> (),
 }
 
-function Warmup:Init(config: InitConfig)
+function Speedometer:Init(config: InitConfig)
 
 	assert(config.BE_TriggerSound, "BE_TriggerSound not provided")
 	self.BE_TriggerSound = config.BE_TriggerSound
 
-	--assert(config.Btn_Func_Press, "Btn_Func_Press not provided")
-	self.Btn_Func_Press = config.Btn_Func_Press
-	--assert(config.Btn_Func_Release, "Btn_Func_Release not provided")
-	self.Btn_Func_Release = config.Btn_Func_Release
+	assert(config.Btn_Func, "Btn_Func not provided")
+	self.Btn_Func = config.Btn_Func
 
 	Gui.Enabled = true
 
@@ -96,20 +95,14 @@ function Warmup:Init(config: InitConfig)
 	self.Frame_Root          = Gui:FindFirstChild("Frame_Root"):: Frame -- Root frame
 	self.defaultPosition     = UDim2.fromScale(self.Frame_Root.Position.X.Scale, self.Frame_Root.Position.Y.Scale)
 
-	self.Frame_Marker        = Gui:FindFirstChild("Frame_Marker", true):: Frame -- Grid of upgrade buttons
+	self.Text_Value        = Gui:FindFirstChild("Text_Value", true):: TextLabel -- Value text
 
-	self.Btn_Input           = Gui:FindFirstChild("Btn_Input", true):: GuiButton -- Main window title
-	self.Btn_Input.MouseButton1Down:Connect(function()
-		self.Btn_Func_Press()
-	end)
+	self.Img_Needle        = Gui:FindFirstChild("Img_Needle", true):: Frame -- Grid of upgrade buttons
 
-	self.Btn_Input.MouseButton1Up:Connect(function()
-		self.Btn_Func_Release()
-	end)
 
 	task.spawn(function()
 		task.wait(0.1)
-		self.Frame_Root.Position = UDim2.fromScale(self.defaultPosition.X.Scale, 1.2)
+		self.Frame_Root.Position = UDim2.fromScale(self.defaultPosition.X.Scale, -1)
 	end)
 end
 
@@ -124,15 +117,12 @@ end
 -- ╚══════╝╚═╝  ╚═╝ ╚═════╝  ╚══╝╚══╝ ╚═╝    ╚═╝  ╚═╝╚═╝╚═════╝ ╚══════╝
 --
 
-function Warmup:Show(name: string)
-	print("Show warmup asdfasdfasdfasdfasdf")
-	print("Warmup:Show: defaultPosition", self.defaultPosition.Y.Scale)
+function Speedometer:Show(name: string)
 	Anim.SlideTo(self.Frame_Root, self.defaultPosition, 0.5, false)
 end
 
-function Warmup:Hide(name: string)
-	print("Hide warmup zxcvzxcvzxcvzxcvzxcvzxc")
-	local target = UDim2.fromScale(self.defaultPosition.X.Scale, 1.2)
+function Speedometer:Hide(name: string)
+	local target = UDim2.fromScale(self.defaultPosition.X.Scale, -1)
 	Anim.SlideTo(self.Frame_Root, target, 0.5, true)
 end
 
@@ -146,10 +136,16 @@ end
 -- ╚══════╝╚══════╝   ╚═╝         ╚═══╝  ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚══════╝
 --
 
-function Warmup:SetValue(value: number)
-	value = math.clamp(value or 0.5, 0, 1)
+function Speedometer:SetValue(ratio: number, trueValue: number)
+	ratio = math.clamp(ratio or 0.5, 0, 1)
 
-	self.Frame_Marker.Position = UDim2.fromScale(value, 0)
+	local minRotation = 0
+	local maxRotation = -205
+	local rotation = minRotation + (maxRotation - minRotation) * ratio
+
+	self.Frame_Marker.Rotation = rotation
+
+	self.Text_Value.Text = trueValue
 end
 
 
@@ -162,4 +158,4 @@ end
 -- ╚═╝  ╚═╝╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
 --
 
-return Warmup
+return Speedometer
