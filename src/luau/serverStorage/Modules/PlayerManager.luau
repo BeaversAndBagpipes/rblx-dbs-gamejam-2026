@@ -354,7 +354,6 @@ function PlayerManager:GetPlayerDataAttributes(player: Player)
 	-- Seach player attributes for anythign starting with the prefix
 	for key: string, value: any in pairs(player:GetAttributes()) do
 		if
-			Util.TableContainsKey(DS_PlayerData.DefaultValue, key) or
 			Util.TableContainsValue(D_Attributes.PlayerData, key)
 		then
 			local newKey = string.gsub(key, self.PlayerDataAttributePrefix, "")
