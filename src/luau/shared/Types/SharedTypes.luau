@@ -27,4 +27,9 @@ export type ParticleBurst = {
 	spawnPos    : () -> Vector2?
 }
 
+export type UpgradeDescription = {
+	tier	: string,
+	level 	: number
+}
+
 return {}
