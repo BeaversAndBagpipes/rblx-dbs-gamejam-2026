@@ -12,7 +12,7 @@ local Settings = {
 }
 
 Settings.Player = {
-	CharacterWalkSpeed    = 16,
+	CharacterWalkSpeed    = 24,
 	CharacterJumpHeight   = 7.2,
 	CharacterJumpPower    = 50,
 	CharacterUseJumpPower = true, -- false = JumpHeight

@@ -88,14 +88,14 @@ function Anim.Fade(
 	fromTransparency = math.clamp(fromTransparency  or  0, 0, 1)
 	toTransparency   = math.clamp(toTransparency    or 1, 0, 1)
 
-	local goal = {
-		BackgroundTransparency = toTransparency
-	}
-	frame.BackgroundTransparency = fromTransparency
+	local goal = {}
 
 	if frame:IsA("ImageLabel") then
 		goal.ImageTransparency = toTransparency
 		frame.ImageTransparency = fromTransparency
+	else
+		frame.BackgroundTransparency = fromTransparency
+		goal.BackgroundTransparency = toTransparency
 	end
 
 	local tweenInfo = TweenInfo.new(

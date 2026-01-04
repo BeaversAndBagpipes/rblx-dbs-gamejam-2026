@@ -70,7 +70,7 @@ task.spawn(function()
 
 	_ClientRaceController:Init({
 		RequestRaceStart = _EventManager.Instances.RemoteEvent.RequestRaceStart,
-		
+		NotifyRaceStarting = _EventManager.Instances.RemoteEvent.NotifyRaceStarting,
 	})
 
 	-- Fire Event

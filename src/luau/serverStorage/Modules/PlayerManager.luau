@@ -49,6 +49,8 @@ local PlayerManager = {}
 -- ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝
 --
 
+
+
 function PlayerManager:Init()
 
 	-- Set the respawn time:
@@ -74,9 +76,13 @@ function PlayerManager:Init()
 	for _, player in Players:GetPlayers() do
 		self:OnPlayerConnect(player)
 	end
+
+	self._listeners = {}
 end
 
-
+function PlayerManager:AddListener(listener) --should be type that has onplayeradded and removed funcs
+    table.insert(self._listeners, listener)
+end
 
 --  ██████╗ ██████╗ ███╗   ██╗███╗   ██╗███████╗ ██████╗████████╗
 -- ██╔════╝██╔═══██╗████╗  ██║████╗  ██║██╔════╝██╔════╝╚══██╔══╝
@@ -108,6 +114,13 @@ function PlayerManager:OnPlayerConnect(player: Player)
 
 	-- Update various player stats, such as when they last played, how many days in a row they've been palying for, etc
 	self:UpdatePlayerStats(player)
+
+    -- Notify all listeners about player connection
+	for _, listener in ipairs(self._listeners) do
+		if listener.OnPlayerConnect then
+			listener:OnPlayerConnect(player)
+		end
+	end
 end
 
 
@@ -123,6 +136,11 @@ end
 function PlayerManager:OnPlayerDisconnect(player: Player)
 	-- Save their player stats
 	self:SavePlayerStats(player)
+	for _, listener in ipairs(self._listeners) do
+		if listener.OnPlayerDisconnect then
+			listener:OnPlayerDisconnect(player)
+		end
+	end
 end
 
 

@@ -18,6 +18,7 @@ local _UI_Loading       = require(ReplicatedStorage.ClientStorage.Modules.GUI_Co
 local _UI_Message       = require(ReplicatedStorage.ClientStorage.Modules.GUI_Controllers.Message)
 local _UI_PlayerPrefs   = require(ReplicatedStorage.ClientStorage.Modules.GUI_Controllers.PlayerPrefs)
 local _UI_Coins         = require(ReplicatedStorage.ClientStorage.Modules.GUI_Controllers.Coins)
+local _UI_Upgrades      = require(ReplicatedStorage.ClientStorage.Modules.GUI_Controllers.Upgrades)
 
 -- Modules
 local Anim              = require(ReplicatedStorage.Shared.Lib["Anim.GUI"])
@@ -116,6 +117,12 @@ function WindowManager:Init(config: InitConfig)
 
 	-- UI_Coins
 	_UI_Coins:Init({
+		BE_TriggerSound = config.BE_TriggerSound
+	})
+
+	-- UI_Upgrades
+	_UI_Upgrades:Init({
+		WindowManager   = self,
 		BE_TriggerSound = config.BE_TriggerSound
 	})
 

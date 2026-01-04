@@ -37,8 +37,8 @@ local D_Attributes = {
 		Level_Vehicle        = "Level_Vehicle",      -- Stat  : level of the vehicle the player has - note when this is upgrades the other vehicle stats are reset
 		Level_Engine         = "Level_Engine",       -- Stat  : level of the engine the player has
 		Level_FuelSystem     = "Level_FuelSystem",   -- Stat  : level of the fuel system the player has
-		Level_FuelTanks      = "Level_FuelTanks",    -- Stat  : level of the fuel tanks the player has
-		Level_EngineBells    = "Level_EngineBells",  -- Stat  : level of the engine bells the player has
+		Level_FuelTank       = "Level_FuelTank",    -- Stat  : level of the fuel tanks the player has
+		Level_Nozzle         = "Level_Nozzle",      -- Stat  : level of the engine bells the player has
 	},
 
 	-- General default attributes, used for animations mostly
@@ -49,6 +49,10 @@ local D_Attributes = {
 		Position   = "DefaultPosition",   -- Used when animating UI  or  Workspace objects
 		Size       = "DefaultSize",       -- Used when animating elements
 		Value      = "DefaultValue",      -- Used by Admin panel to remember default value
+	},
+
+	UI = {
+		Closed = "UI_Closed",
 	},
 
 	-- Misc
