@@ -6,6 +6,9 @@ local ClientRaceController = {}
 type InitConfig = {
     RequestRaceStart : RemoteEvent,
     NotifyRaceStarting : RemoteEvent,
+    RequestInputProcessing : RemoteEvent,
+    NotifyRacePhaseChange : RemoteEvent,
+    Warmup : table
 }
 
 function ClientRaceController:GetCameraAngle(playerVehicle : Model)
@@ -43,6 +46,22 @@ function ClientRaceController:Init(config : InitConfig)
             end)
         end)
     end)
+    
+    config.NotifyRacePhaseChange.OnClientEvent:Connect(function(phase : string)
+        if phase == "Warmup" then
+            config.Warmup:Show()
+        else
+            config.Warmup:Hide()
+        end
+    end)
+end
+
+function ClientRaceController:PressButton()
+    print("pressing the button")
+end
+
+function ClientRaceController:ReleaseButton()
+    print("released the button")
 end
 
 return ClientRaceController

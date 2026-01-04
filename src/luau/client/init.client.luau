@@ -18,6 +18,7 @@ local _ClientRaceController = require(ReplicatedStorage.ClientStorage.Modules.Cl
 -- Singletons: GUI Generic
 local _ParticleManager  = require(ReplicatedStorage.ClientStorage.Modules.ParticleManager)
 local _WindowManager    = require(ReplicatedStorage.ClientStorage.Modules.WindowManager)
+local _Warmup           = require(ReplicatedStorage.ClientStorage.Modules.GUI_Controllers.Warmup)
 
 
 -- Wait until everything have finished loading before firing events
@@ -69,10 +70,25 @@ task.spawn(function()
 		RequestRaceStart = _EventManager.Instances.RemoteEvent.RequestRaceStart
 	})
 
+	_Warmup:Init({
+		BE_TriggerSound = _EventManager.Instances.BindableEvent.TriggerSound,
+		Btn_Func_Press = function()
+			_ClientRaceController:PressButton()
+		end,
+		Btn_Func_Release = function()
+			_ClientRaceController:ReleaseButton()
+		end,
+	})
+
 	_ClientRaceController:Init({
 		RequestRaceStart = _EventManager.Instances.RemoteEvent.RequestRaceStart,
 		NotifyRaceStarting = _EventManager.Instances.RemoteEvent.NotifyRaceStarting,
+		RequestInputProcessing = _EventManager.Instances.RemoteEvent.RequestInputProcessing,
+		NotifyRacePhaseChange = _EventManager.Instances.RemoteEvent.NotifyRacePhaseChange,
+		Warmup = _Warmup
 	})
+
+	
 
 	-- Fire Event
 	_EventManager.Instances.BindableEvent.OnClientLoad:Fire()

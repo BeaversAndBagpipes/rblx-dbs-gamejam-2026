@@ -76,7 +76,8 @@ local Warmup = {} :: T_Warmup
 
 type InitConfig = {
 	BE_TriggerSound: BindableEvent,
-	Btn_Func: () -> (),
+	Btn_Func_Press: () -> (),
+	Btn_Func_Release: () -> (),
 }
 
 function Warmup:Init(config: InitConfig)
@@ -84,8 +85,10 @@ function Warmup:Init(config: InitConfig)
 	assert(config.BE_TriggerSound, "BE_TriggerSound not provided")
 	self.BE_TriggerSound = config.BE_TriggerSound
 
-	assert(config.Btn_Func, "Btn_Func not provided")
-	self.Btn_Func = config.Btn_Func
+	--assert(config.Btn_Func_Press, "Btn_Func_Press not provided")
+	self.Btn_Func_Press = config.Btn_Func_Press
+	--assert(config.Btn_Func_Release, "Btn_Func_Release not provided")
+	self.Btn_Func_Release = config.Btn_Func_Release
 
 	Gui.Enabled = true
 
@@ -97,8 +100,12 @@ function Warmup:Init(config: InitConfig)
 	self.Frame_Marker        = Gui:FindFirstChild("Frame_Marker", true):: Frame -- Grid of upgrade buttons
 
 	self.Btn_Input           = Gui:FindFirstChild("Btn_Input", true):: GuiButton -- Main window title
-	self.Btn_Input.MouseButton1Click:Connect(function()
-		self.Btn_Func()
+	self.Btn_Input.MouseButton1Down:Connect(function()
+		self.Btn_Func_Press()
+	end)
+
+	self.Btn_Input.MouseButton1Up:Connect(function()
+		self.Btn_Func_Release()
 	end)
 end
 
@@ -114,10 +121,12 @@ end
 --
 
 function Warmup:Show(name: string)
+	print("Show warmup asdfasdfasdfasdfasdf")
 	Anim.SlideTo(self.Frame_Root, self.defaultPosition, 0.5, false)
 end
 
 function Warmup:Hide(name: string)
+	print("Hide warmup zxcvzxcvzxcvzxcvzxcvzxc")
 	local target = UDim2.fromScale(self.defaultPosition.X.Scale, 1.75)
 	Anim.SlideTo(self.Frame_Root, target, 0.5, true)
 end
