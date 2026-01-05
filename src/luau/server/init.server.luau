@@ -33,7 +33,7 @@ _PlayerManager:AddListener(_GarageManager)
 --_PlayerManager:AddListener(_UpgradeManager)
 
 _RewardsManager:Init({
-    NotifyRaceEnded = _EventManager.Instances.RemoteEvent.NotifyRaceEnded
+    RE_NotifyRaceEnded = _EventManager.Instances.RemoteEvent.NotifyRaceEnded
 })
 
 _ServerRaceManager:Init({
