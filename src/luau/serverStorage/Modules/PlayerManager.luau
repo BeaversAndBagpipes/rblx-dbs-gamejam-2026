@@ -314,7 +314,7 @@ function PlayerManager:GetPlayerData(
 	player: Player
 )
 	local defaultData = {
-		Coins             = 100,
+		Coins             = 3000,
 		Level_Vehicle     = 1,
 		Level_Engine      = 1,
 		Level_FuelSystem  = 1,

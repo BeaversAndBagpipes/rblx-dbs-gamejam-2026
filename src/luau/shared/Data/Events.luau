@@ -20,7 +20,8 @@ export type T_Events = {
 		RequestUpgrade : RemoteEvent,
 		NotifyRaceStarting : RemoteEvent,
 		RequestInputProcessing : RemoteEvent,
-		NotifyRacePhaseChange : RemoteEvent
+		NotifyRacePhaseChange : RemoteEvent,
+		NotifyRaceEnded : RemoteEvent
 	},
 	RemoteFunction: {
 		--GetPlayerData: RemoteFunction,
@@ -52,6 +53,7 @@ Events.RemoteEvent.RequestUpgrade     = Instance.new("RemoteEvent")  :: RemoteEv
 Events.RemoteEvent.NotifyRaceStarting = Instance.new("RemoteEvent")  :: RemoteEvent
 Events.RemoteEvent.RequestInputProcessing = Instance.new("RemoteEvent")  :: RemoteEvent
 Events.RemoteEvent.NotifyRacePhaseChange  = Instance.new("RemoteEvent")  :: RemoteEvent
+Events.RemoteEvent.NotifyRaceEnded        = Instance.new("RemoteEvent")  :: RemoteEvent
 
 -- Remote Functions
 Events.RemoteFunction               = {} :: { [string]: RemoteFunction }
