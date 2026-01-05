@@ -1,5 +1,6 @@
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
 
 local ClientRaceController = {}
 
@@ -28,15 +29,32 @@ end
 function ClientRaceController:Init(config : InitConfig)
     self.buttonPressed = false
     self.phase = "None"
-    self.warmupPerSecond = 0.7
     self.totalWarmup = 0
+    self.warmupPerSecond = 0.7
     config.Warmup:SetValue(0)
+
+    -- Listen for player W key press and call self.pressbutton
+
+
+
+    UserInputService.InputBegan:Connect(function(input, gameProcessed)
+        if not gameProcessed and input.KeyCode == Enum.KeyCode.W then
+            self:PressButton()
+        end
+    end)
+
+    UserInputService.InputEnded:Connect(function(input, gameProcessed)
+        if not gameProcessed and input.KeyCode == Enum.KeyCode.W then
+            self:ReleaseButton()
+        end
+    end)
 
     --connect player input
     
     config.NotifyRaceStarting.OnClientEvent:Connect(function(playerVehicle : Model)
         
-        RunService.Heartbeat:Connect(function(dt)
+        self.HeartbeatConn = nil
+        self.HeartbeatConn = RunService.Heartbeat:Connect(function(dt)
             if self.phase == "Warmup" then
                 if self.buttonPressed then
                     self.totalWarmup += dt * self.warmupPerSecond
@@ -61,6 +79,7 @@ function ClientRaceController:Init(config : InitConfig)
         tween:Play()
         
         tween.Completed:Connect(function()
+            
             RunService:BindToRenderStep("RaceCamera", Enum.RenderPriority.Camera.Value, function()
                 camera.CFrame = self:GetCameraAngle(playerVehicle)
             end)
@@ -80,8 +99,18 @@ function ClientRaceController:Init(config : InitConfig)
         end
     end)
 
-    config.NotifyRaceEnded.OnClientEvent:Connect(function()
-    
+    config.NotifyRaceEnded.OnClientEvent:Connect(function(velocity : number)
+        
+        if self.HeartbeatConn then
+            self.HeartbeatConn:Disconnect()
+        end
+        self.buttonPressed = false
+        self.phase = "None"
+        self.totalWarmup = 0
+        
+        RunService:UnbindFromRenderStep("RaceCamera")
+        workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
+        
     end)
 end
 

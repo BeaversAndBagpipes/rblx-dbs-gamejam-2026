@@ -68,13 +68,15 @@ function ServerRaceManager:Init(config : InitConfig)
             config.NotifyRacePhaseChange:FireClient(player, "End")
             --award??
             --todo activeraces velocity can be used here
-            
+
             config.NotifyRaceEnded:FireClient(player, self.ActiveRaces[player].velocity)
             self.moveConnection:Disconnect()
+            task.wait(1)
+            self.ActiveRaces[player].vehicle:Destroy()
+            self.ActiveRaces[player] = nil
             
-            --todo: this happens after the camera tweens back
-            --self.ActiveRaces[player].vehicle:Destroy()
-            --self.ActiveRaces[player] = nil
+            
+            
         end)
         
 
