@@ -125,13 +125,11 @@ end
 --
 
 function Warmup:Show(name: string)
-	print("Show warmup asdfasdfasdfasdfasdf")
 	print("Warmup:Show: defaultPosition", self.defaultPosition.Y.Scale)
 	Anim.SlideTo(self.Frame_Root, self.defaultPosition, 0.5, false)
 end
 
 function Warmup:Hide(name: string)
-	print("Hide warmup zxcvzxcvzxcvzxcvzxcvzxc")
 	local target = UDim2.fromScale(self.defaultPosition.X.Scale, 1.2)
 	Anim.SlideTo(self.Frame_Root, target, 0.5, true)
 end
@@ -147,6 +145,7 @@ end
 --
 
 function Warmup:SetValue(value: number)
+	--print(value)
 	value = math.clamp(value or 0.5, 0, 1)
 
 	self.Frame_Marker.Position = UDim2.fromScale(value, 0)

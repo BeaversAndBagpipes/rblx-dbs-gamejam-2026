@@ -33,8 +33,10 @@ export type UpgradeDescription = {
 }
 
 export type RaceInfo = {
+	accel : number,
 	velocity : number,
-	totalDistance : number
+	totalDistance : number,
+	vehicle : Model
 }
 
 return {}
