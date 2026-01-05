@@ -8,6 +8,7 @@ type InitConfig = {
     NotifyRaceStarting : RemoteEvent,
     RequestInputProcessing : RemoteEvent,
     NotifyRacePhaseChange : RemoteEvent,
+    NotifyRaceEnded : RemoteEvent,
     Warmup : table
 }
 
@@ -25,10 +26,29 @@ function ClientRaceController:GetCameraAngle(playerVehicle : Model)
 end
 
 function ClientRaceController:Init(config : InitConfig)
+    self.buttonPressed = false
+    self.phase = "None"
+    self.warmupPerSecond = 0.7
+    self.totalWarmup = 0
+    config.Warmup:SetValue(0)
+
     --connect player input
     
     config.NotifyRaceStarting.OnClientEvent:Connect(function(playerVehicle : Model)
         
+        RunService.Heartbeat:Connect(function(dt)
+            if self.phase == "Warmup" then
+                if self.buttonPressed then
+                    self.totalWarmup += dt * self.warmupPerSecond
+                    if self.totalWarmup > 1 then self.totalWarmup = 1 end
+                else
+                    self.totalWarmup -= dt * self.warmupPerSecond
+                    if self.totalWarmup < 0 then self.totalWarmup = 0 end
+                end
+                config.Warmup:SetValue(self.totalWarmup)
+            end
+        end)
+
         local camera = workspace.CurrentCamera
         local camCFrame = self:GetCameraAngle(playerVehicle)
 
@@ -49,19 +69,28 @@ function ClientRaceController:Init(config : InitConfig)
     
     config.NotifyRacePhaseChange.OnClientEvent:Connect(function(phase : string)
         if phase == "Warmup" then
+            self.phase = "Warmup"
             config.Warmup:Show()
         else
             config.Warmup:Hide()
         end
+        if phase == "Race" then
+            local delta = math.abs(math.clamp(self.totalWarmup - 0.69, -0.25, 0.25))
+            config.RequestInputProcessing:FireServer("Warmup", delta)
+        end
+    end)
+
+    config.NotifyRaceEnded.OnClientEvent:Connect(function()
+    
     end)
 end
 
 function ClientRaceController:PressButton()
-    print("pressing the button")
+    self.buttonPressed = true
 end
 
 function ClientRaceController:ReleaseButton()
-    print("released the button")
+    self.buttonPressed = false
 end
 
 return ClientRaceController

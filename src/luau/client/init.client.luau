@@ -85,6 +85,7 @@ task.spawn(function()
 		NotifyRaceStarting = _EventManager.Instances.RemoteEvent.NotifyRaceStarting,
 		RequestInputProcessing = _EventManager.Instances.RemoteEvent.RequestInputProcessing,
 		NotifyRacePhaseChange = _EventManager.Instances.RemoteEvent.NotifyRacePhaseChange,
+		NotifyRaceEnded = _EventManager.Instances.RemoteEvent.NotifyRaceEnded,
 		Warmup = _Warmup
 	})
 
